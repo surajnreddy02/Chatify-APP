@@ -35,10 +35,16 @@ def chatting_event(json, methods=["GET", "POST"]):
     sender_id = json["sender_id"]
     sender_username = json["sender_username"]
 
-    # Get the message entry for the chat room
+    # Get the message entry for the chat room, create one if it doesn't exist
     message_entry = Message.query.filter_by(room_id=room_id).first()
 
-    # Add the new message to the conversation
+    if not message_entry:
+        # If no entry exists, create a new message entry for the room
+        message_entry = Message(room_id=room_id)
+        db.session.add(message_entry)
+        db.session.commit()
+
+    # Create a new ChatMessage instance
     chat_message = ChatMessage(
         content=message,
         timestamp=timestamp,
@@ -53,7 +59,6 @@ def chatting_event(json, methods=["GET", "POST"]):
     # Commit the new message to the database
     try:
         db.session.add(chat_message)
-        db.session.add(message_entry)
         db.session.commit()
     except Exception as e:
         # Handle the database error
