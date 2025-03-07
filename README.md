@@ -1,6 +1,6 @@
-# iChat Web Application
+# Chat  Application
 
-iChat is a real-time web chat application built with Flask and Socket.IO. It provides a seamless and interactive platform for users to communicate with each other through individual chat rooms.
+Chat is a real-time web chat application built with Flask and Socket.IO. It provides a seamless and interactive platform for users to communicate with each other through individual chat rooms.
 
 ## Project Structure
 
